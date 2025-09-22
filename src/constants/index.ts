@@ -174,6 +174,7 @@ export const MOCK_JOBS = [
     postedAt: '2024-01-15T10:00:00Z',
     applicationUrl: 'https://example.com/apply/1',
     category: 'Technology',
+    logo: 'https://via.placeholder.com/100x100/007AFF/FFFFFF?text=T',
   },
   {
     id: '2',
@@ -187,5 +188,6 @@ export const MOCK_JOBS = [
     postedAt: '2024-01-14T14:30:00Z',
     applicationUrl: 'https://example.com/apply/2',
     category: 'Design',
+    logo: 'https://via.placeholder.com/100x100/5856D6/FFFFFF?text=D',
   },
 ];

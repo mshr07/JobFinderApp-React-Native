@@ -18,6 +18,7 @@ import { Job } from '../../types';
 import { COLORS, SIZES, ROUTES } from '../../constants';
 import JobCard from '../../components/job/JobCard';
 import SearchBar from '../../components/common/SearchBar';
+import LoadingSpinner from '../../components/common/LoadingSpinner';
 
 const JobListScreen: React.FC = () => {
   const navigation = useNavigation();
@@ -36,7 +37,16 @@ const JobListScreen: React.FC = () => {
 
   useEffect(() => {
     // Load initial data
-    dispatch(fetchJobs({ page: 1 }));
+    console.log('JobListScreen: Loading initial data...');
+    dispatch(fetchJobs({ page: 1 }))
+      .unwrap()
+      .then((result) => {
+        console.log('JobListScreen: Jobs loaded successfully:', result.data.length);
+      })
+      .catch((error) => {
+        console.error('JobListScreen: Error loading jobs:', error);
+        Alert.alert('Error', 'Failed to load jobs. Please try again.');
+      });
     dispatch(loadSavedJobs());
   }, [dispatch]);
 
@@ -119,12 +129,7 @@ const JobListScreen: React.FC = () => {
 
   const renderEmptyState = () => {
     if (isLoading && page === 1) {
-      return (
-        <View style={styles.centerContainer}>
-          <ActivityIndicator size="large" color={COLORS.primary} />
-          <Text style={styles.loadingText}>Loading jobs...</Text>
-        </View>
-      );
+      return <LoadingSpinner message="Loading jobs..." />;
     }
 
     return (
